@@ -37,8 +37,8 @@ const features = [
 
 export const AboutSection = () => {
   return (
-    <section id="about" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
+    <section id="about" className="py-20 bg-background/80 backdrop-blur-sm animate-fade-in">
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <Badge variant="outline" className="mb-4 border-primary/20">
             Advanced Healthcare Technology
