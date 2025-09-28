@@ -4,22 +4,18 @@ import { AssessmentSection } from "@/components/AssessmentSection";
 import { ResultsSection } from "@/components/ResultsSection";
 import { AboutSection } from "@/components/AboutSection";
 import { Footer } from "@/components/Footer";
-import { ThreeBackground } from "@/components/ThreeBackground";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      <ThreeBackground />
-      <div className="relative z-10">
-        <Header />
-        <main>
-          <HeroSection />
-          <AssessmentSection />
-          <ResultsSection />
-          <AboutSection />
-        </main>
-        <Footer />
-      </div>
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main>
+        <HeroSection />
+        <AssessmentSection />
+        <ResultsSection />
+        <AboutSection />
+      </main>
+      <Footer />
     </div>
   );
 };

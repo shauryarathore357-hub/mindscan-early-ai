@@ -5,8 +5,8 @@ import heroImage from "@/assets/hero-brain-ai.jpg";
 
 export const HeroSection = () => {
   return (
-    <section className="py-20 bg-gradient-hero relative overflow-hidden animate-fade-in">
-      <div className="absolute inset-0 bg-background/10 backdrop-blur-sm"></div>
+    <section className="py-20 bg-gradient-hero relative overflow-hidden">
+      <div className="absolute inset-0 bg-background/5"></div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">

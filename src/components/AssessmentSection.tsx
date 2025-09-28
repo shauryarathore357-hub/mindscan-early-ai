@@ -51,8 +51,8 @@ export const AssessmentSection = () => {
   const progressPercentage = (completedAssessments.length / assessments.length) * 100;
 
   return (
-    <section id="assessment" className="py-20 bg-background/80 backdrop-blur-sm animate-fade-in">
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="assessment" className="py-20 bg-background">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
             Comprehensive Cognitive Assessment
