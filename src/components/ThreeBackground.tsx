@@ -1,9 +1,9 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
-function NeuralNetwork() {
+function NeuralNetwork({ scroll }: { scroll: number }) {
   const pointsRef = useRef<THREE.Points>(null);
   
   // Create neural network-like point cloud
@@ -18,8 +18,9 @@ function NeuralNetwork() {
 
   useFrame((state) => {
     if (pointsRef.current) {
-      pointsRef.current.rotation.x = state.clock.elapsedTime * 0.05;
-      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.075;
+      pointsRef.current.rotation.x = state.clock.elapsedTime * 0.05 + scroll * 0.5;
+      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.075 + scroll * 0.3;
+      pointsRef.current.position.y = scroll * -2;
     }
   });
 
@@ -37,14 +38,15 @@ function NeuralNetwork() {
   );
 }
 
-function FloatingGeometry() {
+function FloatingGeometry({ scroll }: { scroll: number }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.2;
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.3;
-      meshRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.5;
+      meshRef.current.rotation.x = state.clock.elapsedTime * 0.2 + scroll * 0.8;
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.3 + scroll * 0.6;
+      meshRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.5 + scroll * -3;
+      meshRef.current.position.x = 2 + scroll * 1.5;
     }
   });
 
@@ -62,6 +64,18 @@ function FloatingGeometry() {
 }
 
 export const ThreeBackground = () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scroll = window.scrollY / window.innerHeight;
+      setScrollY(scroll);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="fixed inset-0 -z-10">
       <Canvas
@@ -70,8 +84,8 @@ export const ThreeBackground = () => {
       >
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1} />
-        <NeuralNetwork />
-        <FloatingGeometry />
+        <NeuralNetwork scroll={scrollY} />
+        <FloatingGeometry scroll={scrollY} />
       </Canvas>
     </div>
   );
