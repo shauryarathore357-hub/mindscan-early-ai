@@ -13,15 +13,15 @@ export const HeroSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className={`space-y-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="space-y-4">
-              <Badge variant="outline" className="border-primary-foreground/20 text-primary-foreground">
+            <div className="space-y-6 text-center">
+              <Badge variant="outline" className="border-primary-foreground/20 text-primary-foreground mx-auto">
                 AI-Powered Early Detection
               </Badge>
-              <h1 className="text-4xl lg:text-6xl font-bold text-primary-foreground leading-tight">
+              <h1 className="text-5xl lg:text-7xl font-display font-bold text-primary-foreground leading-[1.1] tracking-tight">
                 Detect Dementia
-                <span className="block text-secondary-glow">Early & Accurately</span>
+                <span className="block text-secondary-glow mt-2 bg-gradient-to-r from-secondary-glow to-primary-glow bg-clip-text text-transparent">Early & Accurately</span>
               </h1>
-              <p className="text-lg text-primary-foreground/80 leading-relaxed max-w-lg">
+              <p className="text-lg lg:text-xl text-primary-foreground/80 leading-relaxed max-w-2xl mx-auto font-light">
                 Our AI-powered platform assesses cognitive function, memory, and speech patterns 
                 to identify early signs of dementia, supporting timely intervention and care.
               </p>
