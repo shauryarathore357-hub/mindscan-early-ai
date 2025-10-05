@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Shield, Clock, Globe, Users } from "lucide-react";
-import heroImage from "@/assets/hero-brain-ai.jpg";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { InteractiveBrainAnimation } from "./InteractiveBrainAnimation";
 
 export const HeroSection = () => {
   const { ref, isVisible } = useScrollAnimation();
@@ -58,12 +58,7 @@ export const HeroSection = () => {
           </div>
 
           <div className={`relative transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <div className="absolute -inset-4 bg-gradient-primary/20 rounded-2xl blur-2xl animate-pulse"></div>
-            <img 
-              src={heroImage} 
-              alt="AI Brain Analysis" 
-              className="relative rounded-2xl shadow-glow w-full h-auto hover:scale-105 transition-transform duration-500"
-            />
+            <InteractiveBrainAnimation />
           </div>
         </div>
       </div>
