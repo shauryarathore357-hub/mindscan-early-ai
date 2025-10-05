@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useState } from "react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const assessments = [
   {
@@ -38,6 +39,7 @@ const assessments = [
 export const AssessmentSection = () => {
   const [completedAssessments, setCompletedAssessments] = useState<string[]>([]);
   const [currentAssessment, setCurrentAssessment] = useState<string | null>(null);
+  const { ref, isVisible } = useScrollAnimation();
 
   const handleStartAssessment = (id: string) => {
     setCurrentAssessment(id);
@@ -52,8 +54,8 @@ export const AssessmentSection = () => {
 
   return (
     <section id="assessment" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+      <div className="container mx-auto px-4" ref={ref}>
+        <div className={`text-center mb-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
             Comprehensive Cognitive Assessment
           </h2>
@@ -83,16 +85,21 @@ export const AssessmentSection = () => {
         )}
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {assessments.map((assessment) => (
-            <AssessmentCard
+          {assessments.map((assessment, idx) => (
+            <div
               key={assessment.id}
-              title={assessment.title}
-              description={assessment.description}
-              duration={assessment.duration}
-              type={assessment.type}
-              onStart={() => handleStartAssessment(assessment.id)}
-              isCompleted={completedAssessments.includes(assessment.id)}
-            />
+              className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              style={{ transitionDelay: `${idx * 150}ms` }}
+            >
+              <AssessmentCard
+                title={assessment.title}
+                description={assessment.description}
+                duration={assessment.duration}
+                type={assessment.type}
+                onStart={() => handleStartAssessment(assessment.id)}
+                isCompleted={completedAssessments.includes(assessment.id)}
+              />
+            </div>
           ))}
         </div>
 

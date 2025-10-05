@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { FileText, Download, Share2, Calendar } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const mockResults = [
   {
@@ -39,11 +40,12 @@ export const ResultsSection = () => {
   const overallScore = Math.round(mockResults.reduce((sum, result) => sum + result.score, 0) / mockResults.length);
   const hasHighRisk = mockResults.some(result => result.status === "high" as any);
   const hasModerateRisk = mockResults.some(result => result.status === "moderate");
+  const { ref, isVisible } = useScrollAnimation();
 
   return (
     <section id="results" className="py-20 bg-muted/30">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+      <div className="container mx-auto px-4" ref={ref}>
+        <div className={`text-center mb-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
             Assessment Results & Risk Analysis
           </h2>
@@ -54,7 +56,7 @@ export const ResultsSection = () => {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8 mb-8">
-          <Card className="lg:col-span-1 p-6 bg-gradient-card border-primary/10 text-center">
+          <Card className={`lg:col-span-1 p-6 bg-gradient-card border-primary/10 text-center transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'} hover:scale-105 hover:shadow-glow transition-all`}>
             <div className="space-y-4">
               <div className="text-4xl font-bold text-primary">{overallScore}</div>
               <div className="text-sm text-muted-foreground">Overall Cognitive Score</div>
@@ -90,14 +92,19 @@ export const ResultsSection = () => {
 
           <div className="lg:col-span-2 grid sm:grid-cols-2 gap-4">
             {mockResults.map((result, index) => (
-              <RiskScoreCard
+              <div
                 key={index}
-                score={result.score}
-                category={result.category}
-                status={result.status}
-                trend={result.trend}
-                lastAssessment={result.lastAssessment}
-              />
+                className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{ transitionDelay: `${300 + index * 100}ms` }}
+              >
+                <RiskScoreCard
+                  score={result.score}
+                  category={result.category}
+                  status={result.status}
+                  trend={result.trend}
+                  lastAssessment={result.lastAssessment}
+                />
+              </div>
             ))}
           </div>
         </div>

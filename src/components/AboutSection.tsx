@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Brain, Shield, Globe, Users, Zap, Award } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const features = [
   {
@@ -36,10 +37,12 @@ const features = [
 ];
 
 export const AboutSection = () => {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
     <section id="about" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+      <div className="container mx-auto px-4" ref={ref}>
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <Badge variant="outline" className="mb-4 border-primary/20">
             Advanced Healthcare Technology
           </Badge>
@@ -57,7 +60,11 @@ export const AboutSection = () => {
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <Card key={index} className="p-6 bg-gradient-card border-primary/10 shadow-soft hover:shadow-medical transition-all duration-300 group">
+              <Card 
+                key={index} 
+                className={`p-6 bg-gradient-card border-primary/10 shadow-soft hover:shadow-glow transition-all duration-700 group hover:scale-105 hover:-translate-y-2 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{ transitionDelay: `${index * 100}ms` }}
+              >
                 <div className={`p-3 rounded-lg bg-primary/10 w-fit mb-4 group-hover:scale-110 transition-transform duration-300`}>
                   <Icon className="h-6 w-6 text-primary" />
                 </div>
@@ -69,7 +76,7 @@ export const AboutSection = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
+          <div className={`space-y-6 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
             <h3 className="text-2xl font-bold text-foreground">How It Works</h3>
             <div className="space-y-4">
               <div className="flex gap-4">
@@ -102,7 +109,7 @@ export const AboutSection = () => {
             </div>
           </div>
 
-          <Card className="p-8 bg-gradient-primary text-primary-foreground">
+          <Card className={`p-8 bg-gradient-primary text-primary-foreground transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'} hover:scale-105 transition-all`}>
             <div className="text-center space-y-6">
               <h3 className="text-2xl font-bold">Clinical Impact</h3>
               <div className="grid grid-cols-2 gap-6">

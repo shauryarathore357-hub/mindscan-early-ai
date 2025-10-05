@@ -2,14 +2,17 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Shield, Clock, Globe, Users } from "lucide-react";
 import heroImage from "@/assets/hero-brain-ai.jpg";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export const HeroSection = () => {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section className="py-20 bg-gradient-hero relative overflow-hidden backdrop-blur-sm">
+    <section ref={ref} className="py-20 bg-gradient-hero relative overflow-hidden backdrop-blur-sm">
       <div className="absolute inset-0 bg-background/50"></div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
+          <div className={`space-y-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <div className="space-y-4">
               <Badge variant="outline" className="border-primary-foreground/20 text-primary-foreground">
                 AI-Powered Early Detection
@@ -34,31 +37,32 @@ export const HeroSection = () => {
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8">
-              <div className="text-center">
-                <Shield className="h-8 w-8 text-secondary-glow mx-auto mb-2" />
-                <p className="text-sm text-primary-foreground/70">HIPAA Compliant</p>
-              </div>
-              <div className="text-center">
-                <Clock className="h-8 w-8 text-secondary-glow mx-auto mb-2" />
-                <p className="text-sm text-primary-foreground/70">5-Min Tests</p>
-              </div>
-              <div className="text-center">
-                <Globe className="h-8 w-8 text-secondary-glow mx-auto mb-2" />
-                <p className="text-sm text-primary-foreground/70">Multi-Language</p>
-              </div>
-              <div className="text-center">
-                <Users className="h-8 w-8 text-secondary-glow mx-auto mb-2" />
-                <p className="text-sm text-primary-foreground/70">Clinical Grade</p>
-              </div>
+              {[
+                { icon: Shield, text: "HIPAA Compliant", delay: "delay-100" },
+                { icon: Clock, text: "5-Min Tests", delay: "delay-200" },
+                { icon: Globe, text: "Multi-Language", delay: "delay-300" },
+                { icon: Users, text: "Clinical Grade", delay: "delay-[400ms]" }
+              ].map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <div 
+                    key={idx}
+                    className={`text-center transition-all duration-700 ${item.delay} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} hover:scale-110 transition-transform`}
+                  >
+                    <Icon className="h-8 w-8 text-secondary-glow mx-auto mb-2 animate-float" style={{ animationDelay: `${idx * 0.2}s` }} />
+                    <p className="text-sm text-primary-foreground/70">{item.text}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          <div className="relative">
-            <div className="absolute -inset-4 bg-gradient-primary/20 rounded-2xl blur-2xl"></div>
+          <div className={`relative transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
+            <div className="absolute -inset-4 bg-gradient-primary/20 rounded-2xl blur-2xl animate-pulse"></div>
             <img 
               src={heroImage} 
               alt="AI Brain Analysis" 
-              className="relative rounded-2xl shadow-glow w-full h-auto"
+              className="relative rounded-2xl shadow-glow w-full h-auto hover:scale-105 transition-transform duration-500"
             />
           </div>
         </div>
