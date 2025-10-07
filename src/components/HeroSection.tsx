@@ -27,11 +27,11 @@ export const HeroSection = () => {
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="lg" className="text-lg px-8">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button variant="hero" size="lg" className="text-lg px-8 transition-all duration-300 hover:scale-110 hover:shadow-glow active:scale-95">
                 Start Assessment
               </Button>
-              <Button variant="outline" size="lg" className="text-lg border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
+              <Button variant="outline" size="lg" className="text-lg border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 transition-all duration-300 hover:scale-110 hover:border-primary-foreground/40 active:scale-95">
                 Learn More
               </Button>
             </div>
