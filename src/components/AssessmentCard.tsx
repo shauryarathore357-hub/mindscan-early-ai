@@ -34,7 +34,7 @@ export const AssessmentCard = ({
       <div className="p-6">
         <div className="flex items-start justify-between mb-4">
           <div className={`p-2 rounded-lg ${color}/10 group-hover:scale-110 transition-all duration-300 relative animate-float`}>
-            <Icon className={`h-6 w-6 text-primary group-hover:animate-pulse group-hover:rotate-12 transition-all duration-500`} />
+            <Icon className={`h-6 w-6 text-primary group-hover:animate-pulse group-hover:rotate-12 transition-all duration-1000 ease-in-out`} />
           </div>
           {isCompleted && (
             <Badge variant="secondary" className="bg-secondary/20 text-secondary">
